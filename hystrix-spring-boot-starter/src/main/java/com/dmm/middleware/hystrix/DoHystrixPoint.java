@@ -31,7 +31,7 @@ public class DoHystrixPoint {
 		// Method method = getMethod(jp);
 		// DoHystrix doHystrixAnnotation = method.getAnnotation(DoHystrix.class);
 		// int timeoutValue = doHystrixAnnotation.timeoutValue();
-		IValueService valueService = new HystrixValueImpl();
+		IValueService valueService = new HystrixValueImpl(doHystrix.timeoutValue());
 		return valueService.access(jp, getMethod(jp), doHystrix, jp.getArgs());
 	}
 

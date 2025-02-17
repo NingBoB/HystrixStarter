@@ -23,7 +23,7 @@ public class UserController {
 	@GetMapping("/api/queryUserInfo")
 	public UserInfo queryUserInfo(@RequestParam String userId) throws InterruptedException {
 		logger.info("查询用户信息，userId：{}", userId);
-		Thread.sleep(1000);
+		Thread.sleep(800);
 		return new UserInfo("虫虫:" + userId, 19, "天津市东丽区万科赏溪苑14-0000");
 	}
 

@@ -19,7 +19,7 @@ public class HystrixValueImpl extends HystrixCommand<Object> implements IValueSe
 	private Method method;
 	private DoHystrix doHystrix;
 
-	public HystrixValueImpl() {
+	public HystrixValueImpl(int time) {
 		/***************************************************************
 		 * 置HystrixCommand的属性
 		 * GroupKey：            该命令属于哪一个组，可以帮助我们更好的组织命令。
@@ -32,6 +32,7 @@ public class HystrixValueImpl extends HystrixCommand<Object> implements IValueSe
 				.andCommandKey(HystrixCommandKey.Factory.asKey("GovernKey"))
 				.andThreadPoolKey(HystrixThreadPoolKey.Factory.asKey("GovernThreadPool"))
 				.andCommandPropertiesDefaults(HystrixCommandProperties.Setter()
+						.withExecutionTimeoutInMilliseconds(time)
 						.withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.THREAD))
 				.andThreadPoolPropertiesDefaults(HystrixThreadPoolProperties.Setter().withCoreSize(10))
 		);
@@ -44,10 +45,10 @@ public class HystrixValueImpl extends HystrixCommand<Object> implements IValueSe
 		this.method = method;
 		this.doHystrix = doHystrix;
 
-		// 设置熔断超时时间
-		Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("GovernGroup"))
-				.andCommandPropertiesDefaults(HystrixCommandProperties.Setter()
-						.withExecutionTimeoutInMilliseconds(doHystrix.timeoutValue()));
+		// // 设置熔断超时时间
+		// Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("GovernGroup"))
+		// 		.andCommandPropertiesDefaults(HystrixCommandProperties.Setter()
+		// 				.withExecutionTimeoutInMilliseconds(doHystrix.timeoutValue()));
 		return this.execute();
 	}
 
